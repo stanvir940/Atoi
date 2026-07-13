@@ -1,0 +1,354 @@
+\documentclass[12pt]{article}
+\usepackage{cite} % Optional, for better citation formatting
+\usepackage{graphicx}
+\usepackage[a4paper, top=1.2in, bottom=1in, left=1.2in, right=1in]{geometry}
+\usepackage{txfonts} % or use: \usepackage{newtxtext}
+\usepackage{setspace} % Load the setspace package
+\usepackage{amsmath}
+\onehalfspacing % Set line spacing to 1.5
+\usepackage[absolute,overlay]{textpos}
+\usepackage{tikz}
+\usepackage{titletoc}
+\usepackage{subcaption}  
+\usepackage{graphicx}
+\usepackage{titletoc}
+\usepackage{tocloft}
+\usepackage{array} % Needed for custom column width
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{ragged2e}  % add this to your preamble if not already there
+\usepackage[hidelinks]{hyperref}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % Custom column 
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shadows}
+
+\definecolor{box1}{RGB}{230,230,250}   % Lavender
+\definecolor{box2}{RGB}{220,235,255}   % Light Blue
+\definecolor{box3}{RGB}{220,245,220}   % Light Green
+\definecolor{box4}{RGB}{255,245,200}   % Light Yellow
+\definecolor{box5}{RGB}{255,230,205}   % Light Orange
+\definecolor{box6}{RGB}{255,220,230}   % Light Pink
+\definecolor{box7}{RGB}{215,245,245}   % Light Cyan
+
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shadows}
+
+
+
+%===============================
+% LIST OF FIGURES & TABLES
+%===============================
+
+\usepackage{tocloft}
+
+% remove dots
+\renewcommand{\cftdotsep}{10000}
+
+% spacing
+\setlength{\cftbeforefigskip}{10pt}
+\setlength{\cftbeforetabskip}{10pt}
+
+
+\renewcommand{\cfttoctitlefont}{\begin{center}\bfseries\fontsize{16}{18}\selectfont}
+\renewcommand{\cftaftertoctitle}{\end{center}}
+
+\renewcommand{\cftaftertoctitle}{%
+    \end{center}
+    \vspace{2\baselineskip}% 2 blank lines of size 12
+    \hfill\textbf{PAGE}\par
+    \vspace{6pt}
+}
+
+% title
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand{\listtablename}{List of Tables}
+
+\renewcommand{\cftloftitlefont}{\hfill\bfseries\fontsize{16}{18}\selectfont}
+\renewcommand{\cftafterloftitle}{\hfill}
+
+\renewcommand{\cftlottitlefont}{\hfill\bfseries\fontsize{16}{18}\selectfont}
+\renewcommand{\cftafterlottitle}{\hfill}
+
+\renewcommand{\cftafterloftitleskip}{1.8cm}
+\renewcommand{\cftafterlottitleskip}{1.8cm}
+
+% widths
+\setlength{\cftfignumwidth}{3.5em}
+\setlength{\cfttabnumwidth}{3.5em}
+
+% type for centered content
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom Chapter Command
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{chapter}
+
+% addingg:
+\usepackage{chngcntr}
+
+
+% Link section-level counters to chapter
+\counterwithin{subsection}{chapter}
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+
+\newcommand{\mychapter}[1]{%
+    \clearpage
+    \refstepcounter{chapter}
+
+    \begin{center}
+        {\fontsize{14}{18}\selectfont\bfseries
+        CHAPTER \Roman{chapter}}
+
+        \vspace{0.4cm}
+
+        {\fontsize{16}{20}\selectfont\bfseries #1}
+    \end{center}
+
+    \vspace{0.5cm}
+
+    % Space before chapter entry in TOC
+    \addtocontents{toc}{\protect\vspace{2em}}
+
+    % Chapter entry
+    \addcontentsline{toc}{section}
+    {CHAPTER \Roman{chapter}\hspace{1.5em}#1}
+
+    % Space after chapter entry in TOC
+    \addtocontents{toc}{\protect\vspace{2em}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TOC Formatting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Front matter (Title Page, Acknowledgement, Abstract, Contents, LOF, LOT)
+\titlecontents{frontmatter}
+[0.5in]
+{\fontsize{12}{18}\selectfont}
+{}
+{}
+{\titlerule*[0.7pc]{}\contentspage}
+
+% Chapter row (CHAPTER I  Introduction)
+\titlecontents{section}
+[0em]
+{\fontsize{12}{18}\selectfont\bfseries}
+{}
+{}
+{\titlerule*[0.7pc]{}\contentspage}
+
+% Within-chapter items (Introduction, Background and Motivation, ...)
+\titlecontents{subsection}
+[2.5em]
+{\fontsize{12}{18}\selectfont}
+{\contentslabel{2.3em}}
+{}
+{\titlerule*[0.7pc]{}\contentspage}
+
+% Sub-items (General Objective, Specific Objectives)
+\titlecontents{subsubsection}
+[5em]
+{\fontsize{12}{18}\selectfont}
+{\contentslabel{2.3em}}
+{}
+{\titlerule*[0.7pc]{}\contentspage}
+
+
+\begin{document}
+\setstretch{1.5}   % Set to 1.5 for 1.5x spacing
+
+
+\setcounter{tocdepth}{3}
+
+
+
+\setlength{\cftbeforesecskip}{20pt} % Adjust spacing before sections
+\setlength{\cftbeforesubsecskip}{12pt} % Adjust spacing before subsections
+
+\phantomsection\addcontentsline{toc}{frontmatter}{Title Page}
+\begin{titlepage}
+    \begin{center}
+    \pagenumbering{roman} % Set page numbering to Arabic numerals
+    \setcounter{page}{1} % Start from page 2
+    {\fontsize{14}{1.5}\selectfont \textbf{CSE 4000: Thesis/Project}}\\
+    \vspace{12pt}
+    {\fontsize{18}{1.5}\selectfont \textbf{Evaluation of University Admission Test Answer Scripts Through OCR-Based Answer Extraction and Rubric-Guided Assessment}}\\
+    \vspace{12pt}
+    \vspace{12pt}
+    {\fontsize{14}{1.5}\selectfont By}\\
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    {\fontsize{14}{1.5}\selectfont \textbf{Md. Tanvir}}\\
+    \vspace{12pt}
+    {\fontsize{14}{1.5}\selectfont Roll: 2007014}\\
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \begin{figure}[htp!]
+        \centering
+        \includegraphics[height=1.2in, width=1in]{img/Logo_KUET.png}
+    \end{figure}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    
+    {\fontsize{12}{1.5}\selectfont \textbf{Department of Computer Science and Engineering}}\\
+    {\fontsize{12}{1.5}\selectfont \textbf{Khulna University of Engineering \& Technology}}\\
+    {\fontsize{12}{1.5}\selectfont \textbf{Khulna 9203, Bangladesh}}\\
+    {\fontsize{12}{1.5}\selectfont \textbf{December, 2025}}\\
+    \newpage
+    
+    {\fontsize{18}{1.5}\selectfont \textbf{Evaluation of University Admission Test Answer Scripts Through OCR-Based Answer Extraction and Rubric-Guided Assessment}}\\
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    {\fontsize{12}{1.5}\selectfont By}\\
+    \vspace{12pt}
+    \vspace{12pt}
+    {\fontsize{12}{1.5}\selectfont \textbf{Md. Tanvir}}\\
+    \vspace{12pt}
+    {\fontsize{12}{1.5}\selectfont Roll: 2007014}\\
+    \vspace{12pt}
+    \vspace{12pt}
+    {\fontsize{12}{1.5}\selectfont A thesis submitted in partial fulfillment of the requirements for the degree of \\
+    "Bachelor of Science in Computer Science \& Engineering" }\\
+    \vspace{12pt}
+    \vspace{12pt}
+    \begin{flushleft}
+    {\fontsize{12}{1.5}\selectfont \textbf{Supervisor:}}\\
+    \hspace*{0.8in} % Adjust the horizontal position
+    {\fontsize{12}{1.5}\selectfont \textbf{Dr. Sk. Imran Hossain}}\\
+    \hspace*{0.8in} % Adjust the horizontal position
+    {\fontsize{12}{1.5}\selectfont Professor}\\
+    \hspace*{0.8in} % Adjust the horizontal position
+    {\fontsize{12}{1.5}\selectfont Department of Computer Science and Engineering \hspace{.65in}\tikz{\draw (0,0) -- (3,0);}}\\
+    \hspace*{0.8in} % Adjust the horizontal position
+    {\fontsize{12}{1.5}\selectfont Khulna University of Engineering \& Technology \hspace{1in} Signature}\\
+    \end{flushleft}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \vspace{12pt}
+    \begin{center}
+\fontsize{16}{24}\selectfont
+Department of Computer Science and Engineering\\
+Khulna University of Engineering \& Technology\\
+Khulna 9203, Bangladesh\\
+July, 2026
+\end{center}
+    \phantomsection\addcontentsline{toc}{frontmatter}{Acknowledgement}
+    \section*{
+        \begin{center}
+            {\fontsize{16}{1.5}\selectfont \textbf{Acknowledgement}}\\
+        \end{center}
+        }
+        \vspace{12pt}
+        \vspace{12pt}
+        \justifying
+        \begingroup
+        In the name of Almighty Allah, the Most Gracious and the Most Merciful. First and foremost, we express our sincere gratitude to Almighty Allah for His endless blessings, guidance, and strength, which enabled us to successfully complete this research. I would like to express our heartfelt appreciation to our respected thesis supervisor, Dr. Sk. Imran Hossain, Professor, Department of Computer Science and Engineering, Khulna University of Engineering and Technology (KUET), for his continuous guidance, valuable suggestions, and unwavering support throughout this research. His encouragement and expert advice were instrumental in the successful completion of this thesis. We are also grateful to all respected faculty members of the Department, for providing an excellent academic environment and sharing their knowledge and encouragement throughout our undergraduate studies. Finally, we express our deepest gratitude to our beloved parents and family for their unconditional love, constant prayers, endless encouragement, and sacrifices.
+        \endgroup
+        
+        
+        
+        \vspace{12pt}
+        \vspace{12pt}
+        {\fontsize{12}{1.5}\selectfont \textbf{\hfill Author}}\\
+    
+    \clearpage
+
+    \phantomsection\addcontentsline{toc}{frontmatter}{Abstract}
+    \section*{
+    \begin{center}
+        {\fontsize{16}{1.5}\selectfont \textbf{Abstract}}\\
+        \vspace{12pt}
+    \end{center}
+    }
+    \justifying
+    \begingroup
+    The evaluation of descriptive university admission examination scripts is traditionally performed using manual paper-based procedures, requiring considerable time and administrative effort for script distribution, evaluation, moderation, and result preparation. As the number of admission applicants increases, these conventional methods become less efficient and make it difficult to ensure transparency, consistency, and timely publication of results. This project presents the design and implementation of a \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}, a web-based platform developed to automate the complete admission script evaluation workflow.
+    
+    The proposed system integrates a React-based frontend, a Node.js and Express.js backend, a MongoDB database, and a Python-based document processing service. A hybrid PDF processing approach combining embedded text extraction and Optical Character Recognition (OCR) is used to detect question boundaries, extract question-wise answer regions, and generate structured metadata. The system also provides role-based access control, anonymous student identification, automated teacher assignment, browser-based digital evaluation, moderation support, and centralized result generation.
+    
+    The system was evaluated through functional testing and workflow validation using representative admission examination data. The results demonstrate that DASEMS successfully automates document processing, evaluation management, moderation, and reporting while maintaining secure access control and efficient communication among system components. By reducing manual administrative effort and introducing a transparent digital evaluation process, the proposed system improves the efficiency, reliability, and fairness of descriptive admission examination management. Its modular architecture also provides a foundation for future enhancements, including AI-assisted evaluation, handwriting recognition, and cloud-based deployment.
+    \endgroup
+
+    
+    \clearpage
+%     \tableofcontents
+% \clearpage
+
+% \listoffigures
+
+% \clearpage
+
+% \listoftables
+\phantomsection\addcontentsline{toc}{frontmatter}{Contents}
+\tableofcontents
+\clearpage
+\phantomsection\addcontentsline{toc}{frontmatter}{List of Figures}
+\listoffigures
+\clearpage
+\phantomsection\addcontentsline{toc}{frontmatter}{List of Tables}
+\listoftables
+
+\vspace{-1.3cm}
+
+\clearpage
+
+    % \addtocontents{toc}{\protect\hfill \textbf{PAGE}\\}
+    
+    \end{center}
+\end{titlepage}
+
+
+\pagenumbering{arabic} % Set page numbering to Arabic numerals
+\setcounter{page}{1}
+
+\include{Introduction}
+\include{Literature Review}
+\include{Proposed Methodology and System Design}
+\include{Implementation}
+\include{Result and Discussion}
+\include{Conclusions}
+
+
+\newpage
+\addcontentsline{toc}{section}{Reference}
+\renewcommand\bibname{References}
+\bibliographystyle{unsrt} 
+\bibliography{References}
+\nocite{*}
+
+
+\end{document}
+
+

@@ -1,0 +1,134 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% customlof.tex
+% Custom List of Figures and List of Tables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{longtable}
+\usepackage{etoolbox}
+\usepackage{tocloft}
+
+%----------------------------------------------------------
+% Remove dots
+%----------------------------------------------------------
+\renewcommand{\cftdotsep}{10000}
+
+%----------------------------------------------------------
+% Fonts
+%----------------------------------------------------------
+\renewcommand{\cftfigfont}{\fontsize{12}{18}\selectfont}
+\renewcommand{\cfttabfont}{\fontsize{12}{18}\selectfont}
+
+\renewcommand{\cftfigpagefont}{\fontsize{12}{18}\selectfont}
+\renewcommand{\cfttabpagefont}{\fontsize{12}{18}\selectfont}
+
+%----------------------------------------------------------
+% Number width
+%----------------------------------------------------------
+\setlength{\cftfignumwidth}{3.8em}
+\setlength{\cfttabnumwidth}{3.8em}
+
+%----------------------------------------------------------
+% Space between entries
+%----------------------------------------------------------
+\setlength{\cftbeforefigskip}{6pt}
+\setlength{\cftbeforetabskip}{6pt}
+
+%----------------------------------------------------------
+% No dots
+%----------------------------------------------------------
+\renewcommand{\cftfigleader}{\hfill}
+\renewcommand{\cfttableader}{\hfill}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% List of Figures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\MyListOfFigures}{
+
+\clearpage
+
+\begin{center}
+{\fontsize{16}{20}\selectfont\bfseries List of Figures}
+\end{center}
+
+\vspace{1cm}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l c r}
+\textbf{Figure No.} &
+\textbf{Description} &
+\textbf{Page}
+\end{tabular*}
+
+\vspace{0.4cm}
+
+\begingroup
+
+\renewcommand{\numberline}[1]{##1\hspace{2em}}
+
+\endgroup
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents (with manual front-matter listing)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\MyTableOfContents}{%
+\clearpage
+\begin{center}
+{\fontsize{16}{20}\selectfont\bfseries Contents}
+\end{center}
+\vspace{1cm}
+
+\hfill{\bfseries PAGE}\\[8pt]
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l r}
+Title Page          & i    \\[8pt]
+Acknowledgment      & ii   \\[8pt]
+Abstract            & iii  \\[8pt]
+Contents            & iv   \\[8pt]
+List of Tables      & vii  \\[8pt]
+List of Figures     & viii \\[8pt]
+\end{tabular*}
+
+\vspace{1.2cm}
+
+\makeatletter
+\@starttoc{toc}
+\makeatother
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% List of Tables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\MyListOfTables}{
+
+\clearpage
+
+\begin{center}
+{\fontsize{16}{20}\selectfont\bfseries List of Tables}
+\end{center}
+
+\vspace{1cm}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l c r}
+\textbf{Table No.} &
+\textbf{Description} &
+\textbf{Page}
+\end{tabular*}
+
+\vspace{0.4cm}
+
+\begingroup
+
+\renewcommand{\numberline}[1]{##1\hspace{2em}}
+
+\@starttoc{lot}
+
+\endgroup
+
+}

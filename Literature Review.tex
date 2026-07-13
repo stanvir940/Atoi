@@ -1,0 +1,65 @@
+
+\mychapter{Literature Review}
+
+\vspace{0.5cm}
+
+\subsection{Introduction}
+
+The evaluation of descriptive examination scripts remains one of the most labor-intensive activities in educational institutions. Although examination registration, scheduling, and result publication have largely been digitized, the assessment of handwritten answer scripts still depends heavily on manual processes. To improve efficiency, researchers have explored technologies such as Optical Character Recognition (OCR), document image analysis, and web-based evaluation systems.
+
+Recent advances in scanning technology, cloud computing, and modern web applications have enabled automated document processing, remote evaluation, and centralized examination management. In addition, techniques such as anonymous assessment and digital moderation have been proposed to improve fairness and consistency. However, most existing systems address only specific aspects of the evaluation process and do not provide a complete solution for descriptive admission script evaluation.
+
+This chapter reviews the literature on digital examination management, OCR, document image processing, online evaluation, and moderation techniques. It analyzes the strengths and limitations of existing approaches to identify the research gap addressed by the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}.
+
+\subsection{Digital Examination Management Systems}
+
+Digital technologies have significantly improved examination management through centralized administration, secure authentication, automated result generation, and efficient scheduling. While these advancements have transformed objective examinations, descriptive examinations still rely heavily on manual evaluation because handwritten answers require human judgment.
+
+Many web-based examination systems support candidate registration, examiner management, and result publication. However, most provide limited support for descriptive answer evaluation, requiring teachers to manually review scanned answer scripts and record marks.
+
+Recent studies have proposed question-wise evaluation by segmenting answer scripts and distributing them to subject specialists, enabling parallel evaluation and reducing workload. Despite these improvements, existing systems often lack automated question segmentation, anonymous evaluation, centralized moderation, and real-time progress monitoring.
+
+Therefore, descriptive admission examinations continue to face challenges in efficiency, fairness, and administrative coordination, emphasizing the need for a comprehensive digital evaluation framework.
+
+
+\subsection{Optical Character Recognition and Document Image Processing}
+
+Optical Character Recognition (OCR) is a key technology for converting scanned documents into machine-readable text. Modern OCR systems, such as Tesseract, use image processing and pattern recognition techniques to accurately identify printed characters and have been widely applied in document digitization, form processing, and educational applications.
+
+Document image processing complements OCR by analyzing the layout of scanned documents, identifying text regions, page structures, and other logical components. For digital PDF files containing searchable text, libraries such as \textbf{PyMuPDF} and \textbf{pdfplumber} enable direct text extraction, providing faster and more accurate processing than OCR while preserving text coordinates.
+
+However, scanned admission answer scripts often lack an embedded text layer and contain handwritten responses, making direct text extraction impossible. In such cases, OCR is required to detect printed question numbers and document structure before answer segmentation can be performed.
+
+The proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} employs a hybrid processing strategy that first extracts embedded PDF text and applies OCR only when necessary. This two-stage approach improves processing efficiency while providing reliable question detection for both digital and scanned admission answer scripts.
+
+
+\subsection{Digital Answer Script Evaluation and Moderation}
+
+Digital answer script evaluation systems enable teachers to assess scanned answer scripts through secure web-based platforms, eliminating the need for physical script distribution. These systems support remote evaluation, centralized administration, and real-time monitoring, thereby improving efficiency and reducing administrative workload.
+
+Many platforms also provide digital annotation tools that allow examiners to highlight answers, insert comments, and assign marks electronically while preserving the original scanned documents. However, maintaining consistency among multiple evaluators remains a challenge because descriptive assessment is inherently subjective.
+
+To improve reliability, several studies have proposed moderation mechanisms in which multiple teachers independently evaluate the same answer. If significant differences exist between assigned marks, the answer is forwarded to a senior examiner for final review. This approach improves fairness and reduces evaluator bias.
+
+The proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} extends these ideas by integrating anonymous evaluation, automated teacher assignment, browser-based annotation, centralized moderation, and real-time progress monitoring into a unified web-based platform. This integrated workflow improves transparency, consistency, and efficiency in descriptive admission script evaluation.
+
+
+
+\subsection{Existing Technologies and Research Gap}
+
+Recent advances in web technologies, cloud computing, OCR, document image processing, and database systems have enabled the development of efficient digital examination platforms. Technologies such as React, Node.js, Express, MongoDB, and Docker provide a scalable foundation for building secure web-based evaluation systems.
+
+Despite these developments, several research gaps remain. Most existing systems focus on individual components such as OCR, document digitization, or online marking, rather than supporting the complete workflow of descriptive examination evaluation. Features including anonymous evaluation, automated question segmentation, intelligent teacher assignment, centralized moderation, and integrated administrative management are rarely available within a single platform.
+
+The proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} addresses these limitations by integrating hybrid PDF processing, OCR-assisted question segmentation, anonymous evaluation, role-based access control, automated teacher assignment, digital annotation, moderation, and result generation into a unified web-based platform. Rather than replacing human examiners, the system automates administrative tasks while preserving academic judgment throughout the evaluation process.
+
+
+\subsection{Chapter Summary}
+
+This chapter reviewed the literature on digital examination management systems, Optical Character Recognition (OCR), document image processing, digital answer script evaluation, and moderation techniques. Existing studies demonstrate that these technologies improve examination administration, document processing, and remote evaluation.
+
+The review also identified several research gaps, including the lack of integrated support for anonymous evaluation, automated question segmentation, teacher assignment, centralized moderation, and comprehensive evaluation management. Moreover, fully automated grading of descriptive answers remains challenging because of the subjective nature of handwritten responses.
+
+Based on these findings, this research proposes the \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}, which combines modern web technologies with intelligent document processing to support the complete evaluation workflow while preserving human judgment. The next chapter presents the proposed methodology, system architecture, and implementation of the system.
+
+

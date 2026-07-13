@@ -1,0 +1,255 @@
+
+
+\mychapter{Conclusion}
+\vspace{0.5cm}
+
+\subsection{Introduction}
+
+This thesis presented the design, implementation, and evaluation of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}, a web-based platform for digitizing the workflow of descriptive university admission examinations. The system integrates secure web technologies with OCR-assisted document processing to automate administrative tasks while preserving human judgment during answer evaluation.
+
+The developed platform consists of a React-based frontend, a Node.js backend, a MongoDB database, and an independent Python document processing service. A hybrid PDF processing pipeline combines embedded text extraction with Optical Character Recognition (OCR) to identify question boundaries, extract question-wise answer images, and generate metadata for automated evaluation.
+
+The system also incorporates subject-based teacher assignment, anonymous evaluation, centralized moderation, and automatic result generation. These features improve fairness, reduce administrative effort, and enhance the transparency of the evaluation process.
+
+Experimental evaluation confirmed that the proposed system successfully supports the complete admission evaluation workflow, from PDF upload to final result generation. Overall, DASEMS provides a practical, secure, and scalable solution for managing descriptive university admission examinations while establishing a foundation for future digital examination systems.
+
+
+\subsection{Research Contributions}
+
+This research contributes to the digital transformation of descriptive university admission examination management by integrating document processing, secure web technologies, and workflow automation into a unified platform. The major contributions of this thesis are summarized in Table~\ref{tab:research_contributions}.
+
+\begin{table}[ht]
+\centering
+\caption{Major Research Contributions}
+\label{tab:research_contributions}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{2cm}|p{11.5cm}|}
+\hline
+\textbf{No.} & \textbf{Contribution} \\
+\hline
+1 & Developed a web-based Digital Admission Script Evaluation and Moderation System (DASEMS) for descriptive admission examinations. \\
+\hline
+2 & Designed a modular architecture using React, Node.js, MongoDB, and an independent Python document processing service. \\
+\hline
+3 & Implemented an OCR-assisted PDF processing pipeline for question detection, answer extraction, and metadata generation. \\
+\hline
+4 & Proposed a hybrid question detection strategy combining embedded PDF text extraction and OCR for both digital and scanned documents. \\
+\hline
+5 & Developed automated teacher assignment based on subject specialization and workload balancing. \\
+\hline
+6 & Introduced anonymous evaluation using system-generated student identifiers to improve fairness. \\
+\hline
+7 & Implemented a browser-based evaluation interface with digital annotation, mark submission, and centralized evaluation management. \\
+\hline
+8 & Developed an automated moderation workflow for resolving inconsistent evaluations through Head Examiner review. \\
+\hline
+9 & Integrated automatic result generation, audit logging, and administrative reporting into a centralized platform. \\
+\hline
+10 & Demonstrated the feasibility of combining OCR-assisted document processing with modern web technologies while preserving human academic judgment. \\
+\hline
+\end{tabular}
+\end{table}
+
+Collectively, these contributions provide a practical, secure, and scalable framework for descriptive admission examination management. The proposed system reduces administrative workload, improves transparency and fairness through anonymous evaluation, and establishes a strong foundation for future enhancements and institutional deployment.
+
+\clearpage
+
+\begin{center}
+    \fontsize{14}{18}\selectfont \textbf{CHAPTER VII}
+
+    \vspace{0.4cm}
+
+    \fontsize{16}{20}\selectfont \textbf{Future Work}
+\end{center}
+
+\vspace{0.5cm}
+
+\subsection{Future Work}
+
+Although the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} meets the objectives of this research, several opportunities exist for future improvement. The modular architecture allows new features to be incorporated with minimal changes to the existing system.
+
+Future work may enhance the document processing module by integrating deep learning-based handwriting recognition to improve answer analysis and indexing. AI-assisted evaluation can also be introduced to provide keyword analysis and preliminary mark suggestions while keeping teachers responsible for final grading.
+
+The current system relies on predefined examination templates for question detection. Future research may develop adaptive document layout analysis capable of processing different examination formats automatically. Cloud-based deployment with distributed processing can further improve scalability and support large-scale admission examinations.
+
+The reporting module may be extended with analytical dashboards showing teacher workload, evaluation consistency, moderation statistics, and processing performance. In addition, mobile and tablet-based evaluation interfaces could provide greater flexibility for teachers.
+
+Future integration with university admission and student information systems would enable seamless data exchange and reduce administrative effort. These enhancements would further improve the efficiency, scalability, and practicality of DASEMS for descriptive admission script evaluation.
+
+\newpage
+
+\textbf{Declaration of generative AI and AI-assisted technologies in the writing process}
+
+During the preparation of this work the authors used Chat- GPT in order to improve the readability and language of the manuscript. After using this service, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \clearpage
+
+% \appendix
+
+% \begin{center}
+%     \fontsize{14}{18}\selectfont \textbf{APPENDICES}
+% \end{center}
+
+% \vspace{0.5cm}
+
+% The appendices provide supplementary materials that support the implementation and evaluation of the proposed Digital Admission Script Evaluation and Moderation System (DASEMS). These materials are not included in the main chapters because they contain detailed implementation artifacts, diagrams, screenshots, and additional documentation. The appendices provide further clarification regarding the system architecture, implementation details, and experimental validation presented throughout this thesis.
+
+
+
+% \subsection{System Architecture}
+
+% This appendix presents the complete architectural diagrams of the proposed system. These diagrams illustrate the interaction among the frontend application, backend server, document processing service, and database.
+
+% Recommended contents include:
+
+% \begin{itemize}
+
+% \item Overall System Architecture
+
+% \item Deployment Diagram
+
+% \item Component Diagram
+
+% \item Data Flow Diagram (DFD)
+
+% \item PDF Processing Workflow
+
+% \end{itemize}
+
+
+
+% \subsection{Database Schema}
+
+% This appendix contains the database design used during implementation.
+
+% Recommended contents include:
+
+% \begin{itemize}
+
+% \item MongoDB Collections
+
+% \item Entity Relationship Diagram
+
+% \item Collection Relationships
+
+% \item Sample Database Documents
+
+% \item Database Indexes
+
+% \end{itemize}
+
+
+
+% \subsection{REST API Documentation}
+
+% This appendix provides a summary of the major RESTful APIs implemented during system development.
+
+% Recommended API groups include:
+
+% \begin{itemize}
+
+% \item Authentication APIs
+
+% \item User Management APIs
+
+% \item Admission Session APIs
+
+% \item Question Bank APIs
+
+% \item Student Management APIs
+
+% \item PDF Upload APIs
+
+% \item Teacher Assignment APIs
+
+% \item Evaluation APIs
+
+% \item Moderation APIs
+
+% \item Result Generation APIs
+
+% \end{itemize}
+
+
+
+% \subsection{User Interface Screenshots}
+
+% This appendix presents screenshots of the implemented web application.
+
+% Recommended screenshots include:
+
+% \begin{itemize}
+
+% \item Login Page
+
+% \item Administrator Dashboard
+
+% \item Admission Session Management
+
+% \item Question Bank Interface
+
+% \item Student Registration
+
+% \item PDF Upload Page
+
+% \item Teacher Evaluation Workspace
+
+% \item Head Examiner Dashboard
+
+% \item Result Generation Dashboard
+
+% \item Audit Log Interface
+
+% \end{itemize}
+
+
+
+% \subsection{Sample Admission Documents}
+
+% This appendix contains representative documents used during experimentation.
+
+% Recommended contents include:
+
+% \begin{itemize}
+
+% \item Admission Question Paper
+
+% \item Student Answer Script
+
+% \item OCR Detection Example
+
+% \item Question Detection Output
+
+% \item Cropped Answer Images
+
+% \item Metadata Example
+
+% \end{itemize}
+
+
+
+% \subsection{Testing and Validation Results}
+
+% This appendix summarizes the testing activities performed during system evaluation.
+
+% Recommended contents include:
+
+% \begin{itemize}
+
+% \item Functional Testing Records
+
+% \item Integration Testing Results
+
+% \item Sample Evaluation Outputs
+
+% \item Moderation Examples
+
+% \item Generated Reports
+
+% \item Additional Experimental Screenshots
+
+% \end{itemize}
