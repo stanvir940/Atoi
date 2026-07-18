@@ -1,120 +1,83 @@
-
-
 \mychapter{Result and Discussion}
 \vspace{0.5cm}
 
 \subsection{Introduction}
 
-This chapter presents the experimental evaluation and discussion of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}. After implementing the system described in the previous chapter, a series of experiments and functional tests were conducted to verify that the developed platform satisfies the objectives of this research.
-
-Since the proposed system focuses on digitizing and automating the workflow of descriptive university admission examinations rather than automatic answer grading, the evaluation emphasizes system functionality, workflow correctness, document processing reliability, administrative efficiency, and usability instead of machine learning performance metrics.
-
-The results demonstrate that DASEMS successfully automates the admission script evaluation process while ensuring secure access control, anonymous evaluation, centralized moderation, and efficient examination management.
-
+This chapter walks through the experimental evaluation of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}. The goal here is to confirm that the implemented system actually meets its functional requirements and can carry the complete admission script evaluation workflow from start to finish. The evaluation looks at system functionality, document processing, the evaluation workflow itself, and how well everything holds together as an integrated whole.
 
 \subsection{Experimental Setup}
 
-The proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} was evaluated using a prototype admission examination environment consisting of a React frontend, Node.js backend, MongoDB database, and a Python-based document processing service. The system was deployed locally using Docker Compose, ensuring consistent execution and seamless communication among all components.
+The system was tested using a prototype admission examination setup built from a React frontend, a Node.js backend, a MongoDB database, and a Python-based document processing service. The experiments ran on scanned admission answer scripts covering Physics, Chemistry, Mathematics, and English.
 
-A representative dataset of scanned admission answer scripts was prepared for four subjects: Physics, Chemistry, Mathematics, and English. Each script contained printed questions followed by handwritten answer regions, simulating actual university admission examinations.
+All three user roles -- \textbf{Super Administrator}, \textbf{Head Examiner}, and \textbf{Teacher} -- were exercised to validate the full workflow, from PDF processing and question segmentation through teacher assignment, evaluation, moderation, and result generation.
 
-Three user roles—\textbf{Super Administrator}, \textbf{Teacher}, and \textbf{Head Examiner}—were created to validate the complete evaluation workflow. During testing, answer scripts progressed through the entire pipeline, including PDF processing, question detection, answer extraction, teacher assignment, evaluation, moderation, and result generation.
-
-Table~\ref{tab:experimental_environment} summarizes the experimental environment used during system evaluation.
-
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \caption{Experimental Environment}
 \label{tab:experimental_environment}
+\renewcommand{\arraystretch}{1.2}
 
-\begin{tabular}{|p{5.5cm}|p{7cm}|}
+\begin{tabular}{|p{5cm}|p{7.5cm}|}
 \hline
 \textbf{Component} & \textbf{Configuration} \\
 \hline
-Frontend Framework & React 18 with TypeScript \\
+Frontend & React 18 (TypeScript) \\
 \hline
-Backend Framework & Node.js with Express.js \\
-\hline
-Programming Languages & TypeScript, JavaScript, Python \\
+Backend & Node.js with Express.js \\
 \hline
 Database & MongoDB \\
 \hline
-Document Processing & Python FastAPI Service \\
+Document Processing & Python FastAPI \\
 \hline
-PDF Processing Library & PyMuPDF \\
+PDF Library & PyMuPDF \\
 \hline
 OCR Engine & Tesseract OCR \\
 \hline
-Image Processing Library & Pillow \\
+Authentication & JWT, bcrypt \\
 \hline
-Authentication & JSON Web Token (JWT), bcrypt \\
+Deployment & Docker Compose \\
 \hline
-Container Platform & Docker Compose \\
+Operating System & macOS \\
 \hline
-Operating Environment & macOS Development Environment \\
+Dataset & Sample Admission Answer Scripts \\
 \hline
-Evaluation Dataset & Sample University Admission Answer Scripts \\
+Subjects & Physics, Chemistry, Mathematics, English \\
 \hline
-Supported Subjects & Physics, Chemistry, Mathematics, English \\
-\hline
-User Roles & Super Administrator, Teacher, Head Examiner \\
+User Roles & Super Administrator, Head Examiner, Teacher \\
 \hline
 \end{tabular}
 
 \end{table}
 
-The experimental setup closely represents a real university admission examination environment and provides a reliable basis for evaluating the functionality and effectiveness of the proposed system.
-
 \subsection{Functional Evaluation}
 
-Functional evaluation was conducted to verify that the major modules of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} satisfied the identified functional requirements. The evaluation focused on validating the correctness and integration of the implemented components.
+Functional evaluation checked that every module worked correctly on its own and that the full admission evaluation workflow ran successfully once everything was connected. Modules were tested individually first, then validated again as part of the integrated system.
 
-Each subsystem was tested individually and then integrated to ensure successful communication among the React frontend, Node.js backend, Python document processing service, and MongoDB database. The complete workflow, from user authentication to result generation, was successfully executed.
+This covered user authentication, admission management, PDF processing, question segmentation, teacher assignment, evaluation, moderation, and result generation. Table~\ref{tab:functional_evaluation} summarizes what came out of this testing.
 
-The authentication module correctly enforced RBAC for Super Administrators, Teachers, and Head Examiners. Administrative functions, including admission session management, question management, and student registration, operated as expected. The PDF processing module successfully extracted question-wise answers and generated structured metadata.
-
-The teacher assignment, evaluation, moderation, and result generation modules also performed correctly, enabling secure evaluation, automatic moderation, and report generation. Overall, the evaluation confirmed that DASEMS functions reliably as an integrated platform for descriptive admission script evaluation.
-
-Table~\ref{tab:functional_evaluation} summarizes the outcomes of the functional testing performed throughout system evaluation.
-
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \caption{Functional Evaluation Results}
 \label{tab:functional_evaluation}
+\renewcommand{\arraystretch}{1.2}
 
-\begin{tabular}{|p{5.8cm}|p{6.2cm}|p{2cm}|}
+\begin{tabular}{|p{6cm}|p{6cm}|p{1.6cm}|}
 \hline
-\textbf{System Module} & \textbf{Expected Outcome} & \textbf{Status} \\
+\textbf{Module} & \textbf{Expected Outcome} & \textbf{Status} \\
 \hline
-User Authentication & Successful login and role verification & Pass \\
+Authentication & Secure user login & Pass \\
 \hline
-Role-Based Authorization & Authorized resource access & Pass \\
+Admission Management & Session and student management & Pass \\
 \hline
-Admission Session Management & Session created successfully & Pass \\
+PDF Processing & Question regions extracted & Pass \\
 \hline
-Question Bank Management & Questions stored correctly & Pass \\
+Teacher Assignment & Automatic task allocation & Pass \\
 \hline
-Student Registration & Student information recorded & Pass \\
+Evaluation & Marks submitted successfully & Pass \\
 \hline
-PDF Upload & Document uploaded successfully & Pass \\
+Moderation & Conflicting evaluations resolved & Pass \\
 \hline
-PDF Validation & Invalid files rejected correctly & Pass \\
-\hline
-PDF Rendering & Pages rendered successfully & Pass \\
-\hline
-Question Detection & Printed questions identified & Pass \\
-\hline
-Answer Extraction & Answer images generated correctly & Pass \\
-\hline
-Metadata Generation & Metadata created successfully & Pass \\
-\hline
-Teacher Assignment & Subject-based allocation completed & Pass \\
-\hline
-Evaluation Submission & Marks stored successfully & Pass \\
-\hline
-Moderation Workflow & Head Examiner review activated & Pass \\
-\hline
-Result Generation & Final results calculated correctly & Pass \\
+Result Generation & Final results generated & Pass \\
 \hline
 Audit Logging & User activities recorded & Pass \\
 \hline
@@ -122,23 +85,17 @@ Audit Logging & User activities recorded & Pass \\
 
 \end{table}
 
-The results presented in Table~\ref{tab:functional_evaluation} demonstrate that every implemented module satisfied its intended functional requirements. Throughout testing, no critical failures were observed that prevented completion of the admission evaluation workflow. Individual modules operated correctly both in isolation and when integrated with the remaining software components.
-
-The successful execution of all functional tests confirms that the proposed Digital Admission Script Evaluation and Moderation System provides a reliable implementation of the workflow described in Chapters III and IV. The integration of authentication, document processing, automated teacher assignment, browser-based evaluation, moderation, and result generation demonstrates the practicality of applying workflow automation to descriptive university admission examinations.
-
-Overall, the functional evaluation validates that the developed system successfully fulfills the primary objectives of this research by replacing several manual administrative activities with secure, centralized, and automated digital processes while preserving the role of human examiners in academic assessment.
-
+Every module tested here worked as expected, and the full workflow ran end to end without any critical failures.
 
 \subsection{Workflow Validation}
 
-In addition to evaluating individual modules, the complete workflow of the proposed was validated to ensure that all components operated correctly as an integrated platform. 
+Beyond testing modules on their own, the complete workflow was run through as an integrated platform to make sure everything worked together properly.
 
-Initially, the Super Administrator created an admission session, uploaded the question bank, registered students, and submitted scanned answer scripts. The backend validated each uploaded document and forwarded valid PDFs to the Python document processing service for rendering, hybrid question detection, answer extraction, and metadata generation.
+The process started with the Super Administrator setting up an admission session, uploading the question bank, registering students, and submitting scanned answer scripts. The backend checked each uploaded document and passed the valid ones along to the Python document processing service, which handled rendering, hybrid question detection, answer extraction, and metadata generation.
 
-The extracted answer records were stored in MongoDB and automatically assigned to subject-specialized teachers according to predefined workload balancing rules. Teachers evaluated their assigned answers using the browser-based interface with digital annotation tools and submitted marks electronically.
+Once extracted, answer records went into MongoDB and were automatically routed to subject-specialized teachers based on the workload-balancing rules already in place. Teachers then worked through their assigned answers in the browser, using the digital annotation tools to mark up scripts and submit their marks.
 
-After three independent evaluations were completed, the moderation module compared the submitted marks. Answers exceeding the predefined moderation threshold were forwarded to the Head Examiner, while the remaining evaluations were finalized automatically. Finally, the result generation module calculated student scores and produced examination reports.
-
+After all three independent evaluations for an answer came in, the moderation module compared the marks. Anything that crossed the moderation threshold went to the Head Examiner; everything else was finalized automatically. From there, the result generation module worked out student scores and put together the examination reports.
 
 \begin{table}[H]
 \centering
@@ -169,15 +126,22 @@ Result Generation & Final results generated correctly & Pass \\
 \end{tabular}
 \end{table}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/workflow.png}
+    \caption{Entire Project Workflow.}
+    \label{fig:Entire Project Workflow}
+\end{figure}
+
 \subsection{Performance Analysis}
 
-The performance of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} was evaluated to assess its responsiveness and workflow efficiency during descriptive admission examinations.
+Performance testing looked at how responsive DASEMS is and how efficiently it moves through the evaluation workflow during a descriptive admission examination.
 
-The modular architecture separates responsibilities among the React frontend, Node.js backend, MongoDB database, and Python-based document processing service. Computationally intensive tasks such as PDF processing and OCR are executed by the Python service, allowing the web application to remain responsive.
+Because the architecture keeps the React frontend, Node.js backend, MongoDB database, and Python document processing service as separate pieces, the heavier work -- PDF processing and OCR -- runs on the Python service without dragging down the responsiveness of the web application itself.
 
-The React frontend efficiently updates interface components, while indexed MongoDB collections improve data retrieval performance. PDF processing and answer extraction are performed asynchronously, enabling administrators and teachers to continue using the system during document processing.
+The React frontend only re-renders what actually changes, and indexed MongoDB collections keep data retrieval fast. PDF processing and answer extraction both run asynchronously, so administrators and teachers can keep working while documents are being processed in the background.
 
-The evaluation interface displays only assigned answers, reducing unnecessary data loading, and the automated assignment and moderation modules support parallel evaluation while minimizing administrative workload.
+The evaluation interface only pulls in answers that are actually assigned to a given teacher, which cuts down on unnecessary data loading, and the automated assignment and moderation modules let evaluation happen in parallel while keeping administrative overhead low.
 
 \begin{table}[H]
 \centering
@@ -207,34 +171,32 @@ Overall System Integration & Stable during end-to-end workflow & Good \\
 \end{table}
 \FloatBarrier
 
-Overall, the experimental observations indicate that the proposed system provides responsive and reliable performance for descriptive admission examinations. The modular architecture, asynchronous PDF processing, efficient database design, and automated workflow enable the system to support large-scale evaluations while remaining suitable for future cloud deployment and system expansion.
-
+Taken together, these observations suggest the system holds up well under the demands of a descriptive admission examination -- responsive and reliable throughout. The modular architecture, asynchronous PDF processing, efficient database design, and automated workflow all point toward a system that could scale to larger evaluations and eventually move to a cloud deployment.
 
 \subsection{Discussion}
 
-The experimental results demonstrate that the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} successfully achieves the research objectives outlined in Chapter I. By integrating document processing, secure web technologies, and automated workflow management, the system provides a practical solution for descriptive university admission examinations.
+The results here show that DASEMS meets the objectives laid out back in Chapter I. Bringing together document processing, secure web technologies, and automated workflow management gives this system a real, practical answer to the problems universities run into when evaluating descriptive admission exams.
 
-A major contribution of the proposed system is the automation of administrative tasks before evaluation. The implemented PDF processing module automatically extracts question-wise answer images from uploaded scripts, eliminating manual question separation and reducing preparation time. The hybrid processing strategy, which combines embedded PDF text extraction with OCR, improves processing efficiency while supporting both searchable and scanned PDF documents.
+One of the bigger wins here is how much administrative work gets automated before evaluation even starts. The PDF processing module pulls question-wise answer images out of uploaded scripts on its own, so nobody has to manually separate questions, which saves a meaningful amount of prep time. The hybrid strategy -- pulling embedded PDF text where it exists, falling back to OCR where it doesn't -- keeps things efficient while still handling both searchable and scanned PDFs.
 
-The anonymous evaluation mechanism enhances fairness by concealing student identities from teachers throughout the assessment process. In addition, the automated teacher assignment module distributes answers according to subject specialization and workload, enabling parallel evaluation while preventing evaluators from viewing one another's assessments.
+Keeping student identities hidden from teachers throughout evaluation makes the process fairer by design. On top of that, automated teacher assignment spreads answers out by subject specialization and workload, letting evaluation run in parallel while making sure no evaluator can see what the others scored.
 
-The moderation module further improves evaluation reliability by forwarding only disputed evaluations to the Head Examiner. This reduces unnecessary moderation while maintaining consistency and transparency. The modular architecture, consisting of independent frontend, backend, document processing, and database components, also simplifies maintenance and supports future system expansion.
+Moderation adds another layer of reliability, but a targeted one -- only disputed evaluations actually reach the Head Examiner, so moderation doesn't become a bottleneck while consistency and transparency stay intact. The modular split between frontend, backend, document processing, and database also means the system is easier to maintain and has room to grow.
 
-Although the proposed system satisfies its primary objectives, several limitations remain. The document processing module assumes a relatively consistent examination layout, and significant template variations may require additional configuration. Furthermore, the system does not perform automatic evaluation of handwritten answers; academic assessment remains entirely dependent on human examiners.
+That said, the system isn't without its limits. The document processing module works from the assumption that exam layouts stay fairly consistent, so a script with a very different template would need extra configuration to handle. And to be clear, this system doesn't grade handwritten answers itself -- the actual academic judgment stays entirely with human examiners.
 
-The prototype was evaluated in a controlled environment using representative admission examination scripts. Although the results demonstrate the feasibility of the proposed approach, large-scale institutional deployment would provide further insight into system scalability and long-term performance.
+It's also worth noting that this prototype was tested in a controlled setting, using a representative but limited set of admission scripts. The results here point to the approach being workable, but rolling it out at full institutional scale would say a lot more about how it holds up over time and under heavier load.
 
-Overall, the proposed DASEMS offers clear advantages over conventional paper-based evaluation by integrating automated document processing, anonymous evaluation, centralized moderation, and automated result generation into a unified platform. The modular design also provides a foundation for future enhancements, including AI-assisted handwriting recognition, intelligent answer analysis, and cloud-based deployment.
+Even with those caveats, DASEMS offers a clear step up from paper-based evaluation -- automated document processing, anonymous grading, centralized moderation, and automated results, all in one platform. And because of how it's built, there's a solid foundation here for adding things later, like AI-assisted handwriting recognition, smarter answer analysis, or a full cloud deployment.
 
 \subsection{Chapter Summary}
 
-This chapter presented the experimental evaluation of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} through functional testing, workflow validation, performance analysis, and discussion. The evaluation verified that the implemented system satisfies the objectives established for this research.
+This chapter covered the experimental evaluation of DASEMS -- functional testing, workflow validation, performance analysis, and a discussion of what it all means. Across the board, the evaluation confirmed that the system meets the objectives set out for this research.
 
-The results confirmed that all major modules, including authentication, PDF processing, question detection, answer extraction, teacher assignment, evaluation, moderation, and result generation, operated correctly within the integrated architecture.
+Every major module -- authentication, PDF processing, question detection, answer extraction, teacher assignment, evaluation, moderation, and result generation -- worked correctly within the integrated system.
 
-Performance analysis showed that the modular architecture, asynchronous document processing, and optimized database operations provided responsive system behavior throughout the evaluation process. Automated teacher assignment, and digital result generation further improved the efficiency, and transparency of descriptive admission examinations.
+On the performance side, the modular architecture, asynchronous document processing, and optimized database operations kept the system responsive throughout the evaluation process, while automated teacher assignment and digital result generation added further gains in efficiency and transparency for descriptive admission examinations.
 
-Overall, the proposed DASEMS provides a practical and secure digital platform that significantly reduces manual administrative effort while improving fairness and operational efficiency in descriptive university admission examinations.
+All told, DASEMS offers a practical, secure digital platform that cuts down manual administrative work considerably while making descriptive university admission examinations fairer and more efficient to run.
 
-The next chapter concludes the thesis by summarizing the research contributions, discussing the limitations of the proposed system, and presenting directions for future work.
-
+The next chapter closes out the thesis, summarizing the research contributions, discussing where the system falls short, and laying out directions for future work.

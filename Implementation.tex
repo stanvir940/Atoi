@@ -1,24 +1,27 @@
-
 \mychapter{Implementation}
 \vspace{0.5cm}
 
 \subsection{Introduction}
 
-This chapter presents the implementation of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}. The system was developed as a web-based platform to automate the workflow of descriptive admission script evaluation.
+This chapter goes through how the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} was actually built. It was developed as a web platform to automate the descriptive admission script evaluation workflow from end to end.
 
-The implementation follows a modular architecture comprising a React frontend, Node.js and Express.js backend, MongoDB database, and a Python-based document processing service for PDF analysis and answer extraction. These components communicate through RESTful APIs to ensure efficient integration and scalability.
+The implementation is split into several components tied together in a modular architecture, along with a Python-based document processing service that handles PDF analysis and answer extraction. These pieces talk to each other through RESTful APIs, which keeps integration clean and the system scalable.
 
-The system supports admission management, PDF processing, teacher assignment, evaluation, moderation, and result generation, while preserving human judgment during answer assessment. The following sections describe the development environment and implementation techniques used in the proposed system.
-
+Altogether, the system covers admission management, PDF processing, teacher assignment, evaluation, moderation, and result generation.
 
 \subsection{Development Environment}
 
-The proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} was developed using a modern full-stack technology stack suitable for web-based applications and document processing.
+\textbf{DASEMS} was built on a modern full-stack setup chosen to suit both web application development and document processing.
 
-The frontend was implemented using \textbf{React 18} and \textbf{TypeScript}, while the backend was developed using \textbf{Node.js} and \textbf{Express.js}. \textbf{MongoDB} was selected as the primary database because of its flexible document-oriented architecture. A separate Python service built with \textbf{FastAPI} performs PDF processing, OCR, and image analysis using libraries such as \textbf{PyMuPDF}, \textbf{pdfplumber}, \textbf{Pillow}, and \textbf{Tesseract OCR}.
+The frontend runs on \textbf{React 18} and \textbf{TypeScript}, and the backend is built with \textbf{Node.js} and \textbf{Express.js}. \textbf{MongoDB} was chosen as the database mainly because its document-oriented structure fits the kind of data this system deals with. A separate Python service, built on \textbf{FastAPI}, handles PDF processing, OCR, and image analysis, using \textbf{PyMuPDF}, \textbf{pdfplumber}, \textbf{Pillow}, and \textbf{Tesseract OCR}.
 
-Docker Compose was used to containerize the backend, database, Redis cache, and Python processing service, ensuring consistent deployment across different environments. Git was used for version control, while Visual Studio Code served as the primary development environment.
+Docker Compose containerizes the backend, database, Redis cache, and Python processing service, so deployment stays consistent no matter where it's run. Git handled version control, and Visual Studio Code was the main development environment throughout.
 
+The whole system was developed and tested on macOS, with Docker Compose managing communication between services to keep the development setup stable and predictable.
+
+\subsubsection{Authentication and Authorization Module}
+
+Authentication relies on \textbf{JWT}, with passwords hashed using \textbf{bcrypt}. Once a user logs in, a JWT gets issued and then checked on every subsequent request to a protected route.
 
 \begin{table}[ht]
 \centering
@@ -64,16 +67,13 @@ Development Environment & Visual Studio Code \\
 \end{tabular}
 \end{table}
 
-The complete system was developed and tested on a macOS environment, with Docker Compose managing communication among all services to provide a consistent and reliable development platform.
-
 \subsection{Backend Implementation}
 
-The backend is the core component of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}. It manages communication among the frontend, MongoDB database, and Python document processing service while implementing the system's business logic.
+The backend is where most of DASEMS's actual logic lives. It sits between the frontend, the MongoDB database, and the Python document processing service, coordinating all three while carrying out the system's business rules.
 
-Developed using \textbf{Node.js} and \textbf{Express.js}, the backend follows a modular architecture with controllers, services, repositories, models, and middleware. It supports authentication, student and admission management, answer script processing, teacher assignment, evaluation, moderation, and reporting.
+Built with \textbf{Node.js} and \textbf{Express.js}, it's organized into controllers, services, repositories, models, and middleware, keeping each concern separate.
 
-The following subsections describe the backend structure, authentication mechanism, and REST API implementation.
-
+The subsections below cover the backend's structure, how authentication works, and how the REST API is put together.
 
 % flow chart
 %===========================
@@ -257,7 +257,7 @@ resultss/resultsr}
 
 \subsubsection{Project Structure}
 
-The backend follows a feature-oriented directory structure, where related files are grouped into independent modules for easier maintenance and future expansion.
+The backend follows a feature-oriented folder structure -- related files sit together in their own module, which makes the codebase easier to maintain and simpler to extend later.
 
 The main directories are:
 
@@ -271,13 +271,9 @@ The main directories are:
 \item \textbf{Middleware}: Authentication, authorization, and validation.
 \end{itemize}
 
-\subsubsection{Authentication and Authorization Module}
-
-Authentication uses \textbf{JWT} with \textbf{bcrypt}-hashed passwords. After login, a JWT is issued and verified for every protected request. Authorization is enforced through \textbf{Role-Based Access Control (RBAC)}, supporting Super Administrator, Teacher, and Head Examiner roles with predefined permissions.
-
 \subsubsection{REST API Implementation}
 
-The frontend communicates with the backend through RESTful APIs using standard HTTP methods. Protected endpoints require JWT authentication and RBAC authorization. The APIs are organized into modules such as Authentication, User Management, Admission Session, Question Management, Student Management, Document Processing, Evaluation, Moderation, Reporting, and Audit Logging.
+The frontend talks to the backend through RESTful APIs using standard HTTP methods. Anything protected requires a valid JWT plus role-based authorization to get through. The APIs themselves are grouped into modules.
 
 \begin{table}[H]
 \centering
@@ -316,10 +312,9 @@ Audit Logging & Recording system activities and user actions \\
 
 \subsection{Frontend Implementation}
 
-The frontend of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} was implemented as a Single Page Application (SPA) using \textbf{React 18} and \textbf{TypeScript}. It provides dedicated interfaces for Super Administrators, Teachers, and Head Examiners while communicating with backend services through RESTful APIs.
+The frontend was built as a Single Page Application (SPA) using \textbf{React 18} and \textbf{TypeScript}. It gives Super Administrators, Teachers, and Head Examiners each their own interface, all talking to the backend through RESTful APIs.
 
-React's component-based architecture improves code reusability and application responsiveness by updating only the modified components. React Query manages asynchronous API communication and caching, while Redux Toolkit maintains authentication and global application state. Tailwind CSS is used for responsive interface design, and React Konva provides digital annotation tools for answer evaluation.
-
+React's component-based structure keeps the app responsive since only the components that actually change get re-rendered, and it makes reusing code across the interface much easier. React Query takes care of asynchronous API calls and caching, while Redux Toolkit keeps track of authentication and other global application state.
 
 \begin{figure}[H]
 \centering
@@ -396,41 +391,35 @@ line/.style={
 
 \end{figure}
 
-
-The frontend provides a consistent and responsive interface for managing the complete admission evaluation workflow.
-
 \subsubsection{User Interface Design}
 
-The interface follows a dashboard-based design in which users access only the functions permitted by their assigned roles. After authentication, users are automatically redirected to their respective dashboards. Navigation is kept simple through responsive layouts, tables, cards, and dialogs, ensuring efficient operation across desktop computers, laptops, and graphics tablets.
+The interface is built around dashboards, so each user only sees the functions their role allows. Once someone logs in, they're taken straight to their own dashboard automatically. Navigation stays simple throughout, relying on responsive layouts, tables, and cards rather than deep menus.
 
 \subsubsection{Administrative Dashboard}
 
-The Administrative Dashboard enables Super Administrators to manage admission sessions, users, departments, subjects, question banks, student registration, answer script uploads, evaluation progress, and result generation.
+From the Administrative Dashboard, Super Administrators handle admission sessions, users, departments, subjects, question banks, student registration, answer script uploads, evaluation progress, and result generation.
 
-Real-time statistics, notifications, and progress indicators help administrators monitor processing status, pending evaluations, moderation requests, and overall examination activities from a centralized interface.
+Real-time stats, notifications, and progress indicators give administrators a single place to keep an eye on how processing is going.
 
 \subsubsection{Teacher Evaluation Workspace}
 
-Teachers access only their assigned answers through a personalized evaluation workspace. Each evaluation page displays the question, model answer, marking rubric, anonymous student identifier, extracted answer image, annotation tools, mark entry field, and comment section.
-
-Using React Konva, teachers can annotate answer images without modifying the original document. After submitting marks, the system automatically loads the next assigned answer, enabling efficient continuous evaluation.
+Teachers only see the answers assigned to them, through their own evaluation workspace. Each evaluation page shows the question, the model answer, the marking rubric, the anonymous student identifier, the extracted answer image, annotation tools, a field for entering marks, and a comment section.
 
 \subsubsection{Head Examiner Dashboard}
 
-The Head Examiner Dashboard manages answers requiring moderation. It displays the extracted answer image, model answer, marking rubric, marks from all evaluators, comments, and annotation layers. After reviewing the submitted evaluations, the Head Examiner assigns the final moderated mark, which is stored together with moderation remarks and timestamps.
+The Head Examiner Dashboard focuses on answers that need moderation. It shows the extracted answer image, the model answer, the marking rubric, the marks from every evaluator, their comments, and the annotation layers.
 
 \subsubsection{Frontend Communication}
 
-The frontend communicates with backend services through RESTful APIs secured by JWT authentication. React Query handles asynchronous requests, caching, and automatic data synchronization, while Redux Toolkit manages user sessions and authentication state. Together, these technologies provide a responsive, secure, and maintainable frontend suitable for large-scale admission examinations.
-
+The frontend reaches the backend through RESTful APIs secured with JWT. React Query handles the asynchronous side -- requests, caching, keeping data in sync -- while Redux Toolkit manages user sessions and authentication state.
 
 \subsection{Database Implementation}
 
-The proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} uses \textbf{MongoDB} as its primary database because of its flexible document-oriented architecture. MongoDB efficiently manages heterogeneous educational data, including users, admission sessions, question banks, students, answer scripts, evaluations, moderation records, and audit logs. Database operations are implemented using \textbf{Mongoose}, which provides schema validation, object modeling, and simplified interaction with MongoDB collections.
+\textbf{DASEMS} runs on \textbf{MongoDB} as its main database, largely because its document-oriented structure handles the mixed, varied nature of the data well -- users, admission sessions, question banks, students, answer scripts, evaluations, moderation records, and audit logs all fit naturally. Database operations go through \textbf{Mongoose}, which adds schema validation, object modeling, and a simpler way to work with MongoDB collections.
 
 \subsubsection{Collection Implementation}
 
-Each major system entity is implemented as a separate MongoDB collection to improve maintainability and scalability. The principal collections include:
+Each major entity in the system gets its own MongoDB collection, which keeps things easier to maintain and scale. The main ones are:
 
 \begin{itemize}
     \item \textbf{Users}: Authentication credentials, user profiles, and roles.
@@ -444,36 +433,15 @@ Each major system entity is implemented as a separate MongoDB collection to impr
 
 \subsubsection{Relationship Implementation}
 
-Logical relationships among collections are maintained using MongoDB document references. Each student belongs to an admission session and is associated with one uploaded script. Every script is segmented into multiple answers, which are assigned to three teachers for independent evaluation. When the moderation threshold is exceeded, evaluation records are linked to an adjudication record maintained by the Head Examiner.
-
-Figure~\ref{fig:mongodb_relationships} illustrates the relationships among the primary MongoDB collections.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.90\textwidth]{img/ER_diagram.png}
-    \caption{Logical relationships among the primary MongoDB collections.}
-    \label{fig:mongodb_relationships}
-\end{figure}
-
+Collections link to each other through MongoDB document references. Each student sits within an admission session and has one uploaded script tied to them. That script gets broken into multiple answers, each of which goes to three teachers for independent evaluation. If the moderation threshold gets crossed, the evaluation records get linked to an adjudication record that the Head Examiner maintains.
 
 \subsubsection{Data Integrity and Consistency}
 
-Mongoose schema validation ensures that all documents satisfy predefined constraints before insertion. Evaluation records remain immutable after submission, while moderation decisions are stored separately to preserve evaluation history. Audit logs follow an append-only strategy, ensuring complete traceability of system activities. Anonymous student identifiers further protect privacy by preventing teachers from accessing personal information during evaluation.
+Mongoose schema validation checks that every document meets its constraints before it's saved. Once an evaluation is submitted, it stays immutable -- moderation decisions get stored as separate records instead, so the original evaluation history is preserved. Audit logs are append-only, which keeps a full, traceable record of everything that happens in the system.
 
 \subsection{PDF Processing Module}
 
-The PDF Processing Module is the core component of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}. It converts uploaded admission answer scripts into question-wise answer records for digital evaluation. Implemented as an independent Python service, the module performs document validation, page rendering, hybrid question detection, answer extraction, metadata generation, and database integration. By separating document processing from the backend, computationally intensive OCR tasks do not affect application responsiveness.
-
-Unlike conventional OCR-only approaches, the proposed module adopts a hybrid strategy. Searchable PDF text is extracted directly whenever available, while OCR is used only for scanned documents without an embedded text layer. This improves both processing speed and detection accuracy.
-
-
-
-% \begin{figure}[ht]
-%     \centering
-%     \includegraphics[width=0.90\textwidth]{img/pdf_processing_workflow.png}
-%     \caption{Implementation workflow of the PDF processing module.}
-%     \label{fig:pdf_processing_workflow}
-% \end{figure}
+The PDF Processing Module turns uploaded admission scripts into question-wise answer records ready for evaluation. It runs as its own Python service, handling PDF validation, page rendering, question segmentation, answer extraction, metadata generation, and writing everything to the database. Figure~\ref{fig:pdf_workflow} shows how this all fits together.
 
 \begin{figure}[ht]
 \centering
@@ -523,95 +491,49 @@ Unlike conventional OCR-only approaches, the proposed module adopts a hybrid str
 
 \end{figure}
 
-
-
 \subsubsection{PDF Upload and Validation}
 
-The uploaded PDF is validated for file integrity, format, and readability before processing. Each document is linked to the corresponding admission session and anonymous student identifier (\textbf{s\_code}), while the original PDF is stored without modification to preserve authenticity throughout the evaluation process.
+Every uploaded PDF is checked for file type and integrity first, then stored as a read-only document before anything else happens to it.
 
 \subsubsection{PDF Rendering}
 
-Each PDF page is converted into a high-resolution image using PyMuPDF. These rendered images provide a standardized input for OCR and subsequent image-processing operations while preserving the original document layout.
+Each page gets rendered into a high-resolution image using PyMuPDF, which gives the rest of the pipeline a consistent, standardized input to work from.
 
-\subsubsection{Hybrid Question Detection}
+\subsubsection{Question Segmentation and Answer Extraction}
 
-The processor first attempts to extract embedded text directly from the PDF. If searchable text is unavailable, OCR is applied to detect printed question numbers and their coordinates. This hybrid approach ensures reliable processing for both digitally generated and scanned answer scripts while minimizing unnecessary OCR operations.
-
-
+Rendered pages are processed against a predefined document template to identify and segment question-wise answer regions. OCR is brought in as needed for scanned documents. Each extracted answer, along with its metadata, gets written to the database -- including the anonymous student identifier for that answer. Every segmented answer region is cropped out as its own standalone image, and the original uploaded document is never altered.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.90\textwidth]{img/question_detection.png}
-    \caption{Hybrid question detection using PDF text extraction and OCR.}
-    \label{fig:question_detection}
+\centering
+\includegraphics[width=0.90\textwidth]{img/question_detection.png}
+\caption{Question segmentation workflow.}
+\label{fig:question_segmentation}
 \end{figure}
-
-\subsubsection{Answer Region Identification}
-
-Using the detected question positions, the processor dynamically determines answer boundaries. Each answer begins below its corresponding question and extends to the next detected question or the end of the page. Multi-page answers are handled automatically, allowing answers of varying lengths to be extracted correctly.
-
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{img/question_detection1.png}
-    \caption{Dynamic identification of answer boundaries based on detected question positions.}
-    \label{fig:answer_segmentation}
-\end{figure}
-
-\subsubsection{Answer Extraction and Metadata Generation}
-
-The identified answer regions are cropped using the Pillow library and stored as independent images. For each extracted answer, the processor generates metadata including the anonymous student identifier, subject, question number, page number, bounding coordinates, image location, and processing status. The metadata are transmitted to the backend as JSON objects for database storage and automatic teacher assignment.
-
-\subsubsection{Database Integration}
-
-The backend creates an independent database record for every extracted answer. Each record stores the extracted image reference, metadata, and processing status. These records serve as the primary evaluation units and are subsequently used for teacher assignment, evaluation, moderation, and result generation.
 
 \subsubsection*{Algorithm 4.1: PDF Processing Pipeline}
 
 \begin{verbatim}
-Input:
-    Uploaded PDF Document
+Input : Uploaded PDF
+Output: Question-wise Answer Records
 
-Output:
-    Question-wise Answer Records
-
-Begin
-
-Receive uploaded PDF
-Validate document
-Store original PDF
-Render pages
-
-For each page do
-
-    Extract PDF text
-
-    If unavailable
-        Perform OCR
-    End If
-
-    Detect questions
-    Determine answer boundaries
-    Crop answers
-    Generate metadata
-
-End For
-
+Validate PDF
+Store original document
+Render PDF pages
+Segment question regions
+Extract answer regions
+Generate metadata
 Store answer records
-Return processing status
 
-End
+Return
 \end{verbatim}
-
 
 \subsection{Teacher Assignment and Evaluation Implementation}
 
-The proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} implements an automated teacher assignment mechanism to ensure fair, anonymous, and balanced evaluation of descriptive answers. After the PDF processing module extracts question-wise answers, the backend retrieves the associated metadata, including subject, question number, anonymous student identifier (\textbf{s\_code}), and answer image location. Based on the subject, the system automatically assigns answers to qualified teachers without manual intervention.
+Once the PDF processing module pulls out the question-wise answers, the backend picks up the associated metadata -- subject, question number, anonymous student identifier (\textbf{s\_code}), and where the answer image is stored.
 
-The assignment engine selects teachers according to their subject specialization and current evaluation workload to ensure balanced distribution. 
+From there, the assignment engine picks teachers based on their subject specialization and how much they're already carrying, so the workload stays reasonably balanced.
 
-To maintain fairness, teachers evaluate answers using only the anonymous student identifier. The evaluation interface provides the extracted answer image, question statement, model answer, marking rubric, annotation tools, and mark submission form. Once submitted, evaluation records become read-only unless modified through the moderation process.
+The evaluation interface pulls all of this together: the extracted answer image, the question statement, the model answer, the marking rubric, annotation tools, and a form for submitting marks. Once a teacher submits their evaluation, that record becomes read-only unless it's later touched through the moderation process.
 
 % for figure: 
 \begin{figure}[H]
@@ -673,116 +595,49 @@ To maintain fairness, teachers evaluate answers using only the anonymous student
 \end{figure}
 \FloatBarrier
 
-
-
-
 \subsubsection{Moderation Implementation}
 
-To improve evaluation consistency, the system automatically compares the marks submitted by the three evaluators. If the difference between the highest and lowest marks is within the predefined moderation threshold, the final score is calculated as the average of the submitted marks.
-
-When the variation exceeds the threshold, the answer is forwarded to the Head Examiner for moderation. The moderation dashboard displays the extracted answer image, model answer, marking rubric, teacher marks, comments, and annotations. After reviewing these materials, the Head Examiner assigns the final mark, which is permanently stored together with moderation remarks and timestamps.
-
-The automated assignment and moderation mechanisms reduce administrative effort while improving fairness, transparency, and consistency throughout the admission evaluation process.
-
-
+To keep grading consistent, the system automatically checks the marks submitted by all three evaluators against each other. If the gap between the highest and lowest mark falls within the moderation threshold, the final score is just the average of the three. If not, the Head Examiner can step in and review it directly.
 
 \subsection{Result Generation}
 
-After teacher evaluation and moderation are completed, the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} automatically generates the final admission examination results. The result generation module consolidates finalized evaluations, calculates student scores, and prepares administrative reports, thereby reducing manual effort and calculation errors.
+Once evaluation and moderation wrap up, the system generates the final results on its own. Before it calculates a student's final mark, it first checks that every assigned evaluation for that student has actually been completed.
 
-Before generating results, the system verifies that all assigned evaluations and moderation tasks have been completed. If any answer remains pending, the corresponding student's result is withheld until the evaluation process is finalized. Once all evaluations are complete, the backend retrieves the approved marks for each question and automatically calculates the total score according to the examination rules.
-
-% Figure~\ref{fig:result_generation} illustrates the workflow of the result generation module.
-
-% \begin{figure}[ht]
-%     \centering
-%     \includegraphics[width=0.85\textwidth]{img/result_generation_workflow.png}
-%     \caption{Workflow of the result generation module.}
-%     \label{fig:result_generation}
-% \end{figure}
-
-
-
-
-The generated results are stored in the MongoDB database and displayed through the administrative dashboard. Administrators can access merit lists, subject-wise performance summaries, and complete evaluation histories for verification.
-
-The reporting module also provides statistics such as:
-
-\begin{itemize}
-    \item Total evaluated answer scripts.
-    \item Pending evaluations.
-    \item Moderated answers.
-    \item Subject-wise performance.
-    \item Teacher workload.
-    \item Final examination results.
-\end{itemize}
-
-By combining automatic score calculation with centralized reporting, the implemented module improves the efficiency, accuracy, and transparency of the admission evaluation process.
-
+Results get stored in MongoDB and shown through the administrative dashboard. Alongside the final results, the system also produces evaluation reports and statistics -- total scripts evaluated, evaluations still pending, how many answers went through moderation, subject-wise performance, and teacher workload. Automating result generation this way cuts down on manual calculation errors and makes the whole evaluation process more efficient and transparent.
 
 \subsection{System Testing and Validation}
 
-After implementing all software modules, comprehensive testing was conducted to verify the correctness, reliability, and integration of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}. The testing process ensured that each module satisfied the functional requirements identified during system analysis.
+The system went through testing to confirm both individual functionality and overall integration. Unit tests covered individual modules first, followed by integration testing across the React frontend, Node.js backend, Python processing service, and MongoDB database. Testing confirmed that every module worked as intended.
 
-Initially, unit testing was performed on individual modules, including authentication, admission management, PDF processing, answer extraction, teacher assignment, evaluation, moderation, and result generation. Integration testing was then conducted to verify communication among the React frontend, Node.js backend, Python document processing service, and MongoDB database.
-
-Table~\ref{tab:functional_testing} summarizes the functional testing results.
-
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \caption{Functional Testing Results}
 \label{tab:functional_testing}
 
-\begin{tabular}{|p{6cm}|p{6cm}|p{2cm}|}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{|p{6cm}|p{6cm}|p{1.8cm}|}
 \hline
 \textbf{System Function} & \textbf{Expected Outcome} & \textbf{Result} \\
 \hline
 User Login & Authorized user access & Pass \\
 \hline
-JWT Authentication & Secure API access & Pass \\
+Admission Management & Data stored successfully & Pass \\
 \hline
-Admission Session Creation & Session stored successfully & Pass \\
+PDF Processing & Question regions extracted & Pass \\
 \hline
-Question Upload & Questions imported correctly & Pass \\
-\hline
-Student Registration & Student information stored & Pass \\
-\hline
-PDF Upload & Document accepted and stored & Pass \\
-\hline
-PDF Processing & Questions detected successfully & Pass \\
-\hline
-Answer Extraction & Answer images generated & Pass \\
-\hline
-Teacher Assignment & Subject-based assignment completed & Pass \\
+Teacher Assignment & Tasks assigned correctly & Pass \\
 \hline
 Evaluation Submission & Marks stored successfully & Pass \\
 \hline
-Moderation Workflow & Head Examiner review activated & Pass \\
+Moderation & Conflicting marks detected & Pass \\
 \hline
-Result Generation & Final marks calculated correctly & Pass \\
+Result Generation & Final results generated & Pass \\
 \hline
 \end{tabular}
 
 \end{table}
 
-The testing results confirm that all modules function correctly and interact successfully within the integrated system. Uploaded answer scripts progressed through the complete workflow, including PDF processing, teacher assignment, evaluation, moderation, and result generation.
-
-Usability testing was also performed using different user roles. Super Administrators successfully managed examination data and generated reports, Teachers evaluated assigned answers through the browser-based interface, and Head Examiners completed moderation using the dedicated dashboard.
-
-Performance testing showed that separating OCR into an independent Python service prevented document processing from affecting frontend responsiveness, allowing multiple users to access the system efficiently.
-
-Overall, the testing process demonstrates that the implemented DASEMS satisfies the functional requirements and provides a reliable platform for descriptive university admission examinations.
-
-
 \subsection{Chapter Summary}
 
-This chapter presented the implementation of the proposed \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}. The system was developed as a modular web-based platform using React, Node.js, MongoDB, and a Python-based document processing service. This architecture provides a scalable and maintainable solution for managing descriptive admission script evaluation.
-
-The implementation included secure authentication, role-based access control, admission management, PDF processing, automated teacher assignment, digital evaluation, moderation, audit logging, and result generation. A hybrid PDF processing pipeline combining embedded text extraction and OCR was implemented to identify question boundaries and generate question-wise answer images for evaluation.
-
-The chapter also demonstrated how automated teacher assignment, anonymous evaluation, and moderation improve fairness and reduce administrative effort. Functional and integration testing confirmed that all modules operate correctly and communicate successfully within the integrated architecture.
-
-Overall, the implemented system provides a reliable digital framework for descriptive admission script evaluation while supporting future enhancements such as AI-assisted handwriting recognition and cloud-based deployment.
-
-The next chapter presents the experimental evaluation of the proposed system, including performance analysis, functional validation, and discussion of the implementation results.
-
+This chapter walked through how DASEMS was implemented -- user management, document processing, question segmentation, teacher assignment, digital evaluation, moderation, and result generation, all working together within a modular web architecture. What comes out of this implementation is a workflow that handles admission script evaluation efficiently and transparently, while still leaving room to scale and extend the system later on. The next chapter turns to the experimental results and performance evaluation of the system.

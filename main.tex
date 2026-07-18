@@ -177,7 +177,7 @@
     \setcounter{page}{1} % Start from page 2
     {\fontsize{14}{1.5}\selectfont \textbf{CSE 4000: Thesis/Project}}\\
     \vspace{12pt}
-    {\fontsize{18}{1.5}\selectfont \textbf{Evaluation of University Admission Test Answer Scripts Through OCR-Based Answer Extraction and Rubric-Guided Assessment}}\\
+    {\fontsize{18}{1.5}\selectfont \textbf{\textsc{Evaluation of University Admission Test Answer Scripts Through OCR-Based Answer Extraction and Rubric-Guided Assessment}}}\\
     \vspace{12pt}
     \vspace{12pt}
     {\fontsize{14}{1.5}\selectfont By}\\
@@ -218,7 +218,7 @@
     {\fontsize{12}{1.5}\selectfont \textbf{December, 2025}}\\
     \newpage
     
-    {\fontsize{18}{1.5}\selectfont \textbf{Evaluation of University Admission Test Answer Scripts Through OCR-Based Answer Extraction and Rubric-Guided Assessment}}\\
+    {\fontsize{18}{1.5}\selectfont \textbf{\textsc{Evaluation of University Admission Test Answer Scripts Through OCR-Based Answer Extraction and Rubric-Guided Assessment}}}\\
     \vspace{12pt}
     \vspace{12pt}
     \vspace{12pt}
@@ -294,11 +294,9 @@ July, 2026
     }
     \justifying
     \begingroup
-    The evaluation of descriptive university admission examination scripts is traditionally performed using manual paper-based procedures, requiring considerable time and administrative effort for script distribution, evaluation, moderation, and result preparation. As the number of admission applicants increases, these conventional methods become less efficient and make it difficult to ensure transparency, consistency, and timely publication of results. This project presents the design and implementation of a \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}, a web-based platform developed to automate the complete admission script evaluation workflow.
-    
-    The proposed system integrates a React-based frontend, a Node.js and Express.js backend, a MongoDB database, and a Python-based document processing service. A hybrid PDF processing approach combining embedded text extraction and Optical Character Recognition (OCR) is used to detect question boundaries, extract question-wise answer regions, and generate structured metadata. The system also provides role-based access control, anonymous student identification, automated teacher assignment, browser-based digital evaluation, moderation support, and centralized result generation.
-    
-    The system was evaluated through functional testing and workflow validation using representative admission examination data. The results demonstrate that DASEMS successfully automates document processing, evaluation management, moderation, and reporting while maintaining secure access control and efficient communication among system components. By reducing manual administrative effort and introducing a transparent digital evaluation process, the proposed system improves the efficiency, reliability, and fairness of descriptive admission examination management. Its modular architecture also provides a foundation for future enhancements, including AI-assisted evaluation, handwriting recognition, and cloud-based deployment.
+    Grading descriptive university admission scripts is still, for the most part, a paper-based job — scripts get physically distributed, marked by hand, checked over by moderators, and finally compiled into results, all of which takes real time and administrative effort. As the number of applicants grows, this way of doing things starts to strain under its own weight, making it harder to keep the process transparent, consistent, and on schedule. This project addresses that with the \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}, a web-based platform built to digitize the entire admission script evaluation workflow.
+    The system brings together a React-based frontend, a Node.js and Express.js backend, a MongoDB database, and a Python-based document processing service. To pull out question-wise answers, it uses a hybrid PDF processing approach that combines embedded text extraction with Optical Character Recognition (OCR), detecting question boundaries and generating structured metadata along the way. On top of that, it handles role-based access control, keeps students anonymous during grading, assigns teachers automatically, supports browser-based digital evaluation, includes a moderation mechanism, and generates results centrally.
+    DASEMS was tested through functional testing and workflow validation using representative admission examination data, and the results show it holds up well — automating document processing, evaluation management, moderation, and reporting, all while keeping access secure and communication between components efficient. By cutting down manual administrative work and replacing it with a transparent digital process, the system makes descriptive admission examination management more efficient, more reliable, and fairer. Its modular design also leaves plenty of room to build on later, whether that's AI-assisted evaluation, handwriting recognition, or moving the system to the cloud.
     \endgroup
 
     
@@ -350,5 +348,3 @@ July, 2026
 
 
 \end{document}
-
-

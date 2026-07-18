@@ -2,122 +2,114 @@
 
 \vspace{0.5cm}
 
-% \subsection{Introduction}
+\subsection{Introduction}
 
- \subsection{Introduction}
+Information technology has reshaped much of university life. Admission, registration, exam scheduling, and result publication have all moved online at most institutions. Yet one part of the process has stubbornly resisted digitization: the evaluation of handwritten, descriptive admission answer scripts. At many universities, this step still runs the old way -- teachers sort through stacks of paper, mark them by hand, cross-check with moderators, and manually compile the results. The process eats up time, demands heavy manual labor, and is hard for administrators to track or supervise \cite{article,inproceedings}.
 
-The rapid advancement of information technology has transformed many sectors by replacing traditional paper-based workflows with efficient digital solutions. Universities have adopted digital systems for admission, registration, examination management, and result publication. However, the evaluation of descriptive admission examination scripts remains largely manual in many institutions. Since handwritten answer scripts require physical distribution, evaluation, moderation, and result compilation, the process becomes increasingly time-consuming and difficult to manage as the number of applicants continues to grow.
+The scale of the problem becomes obvious during large admission tests. Examiners from different departments -- Physics, Chemistry, Mathematics, English -- all need to grade scripts within a tight window. Because everything is done physically, from handing out scripts to logging marks by hand, the workflow is prone to delays and simple human error \cite{8878791}. On top of that, keeping grading standards consistent across many examiners gets harder as the number of applicants climbs, and there's no easy way to see how far along the evaluation actually is at any given moment.
 
-Public universities in Bangladesh receive thousands of admission applications every year for a limited number of seats. Descriptive examinations are typically evaluated by teachers from different disciplines such as Physics, Chemistry, Mathematics, and English. The conventional workflow requires physical distribution of answer scripts, manual allocation of questions, recording marks on paper, resolving discrepancies through moderation, and preparing results manually. Although this approach has been practiced for many years, it introduces several operational challenges when handling a large volume of answer scripts within a limited timeframe.
+Fortunately, developments in web technology, document image processing, and Optical Character Recognition (OCR) open a path forward. Tools like Tesseract can already pull printed text out of scanned pages, and newer document-analysis methods make it possible to handle large volumes of documents automatically \cite{4376991,FRANCIS2025100532}. These tools have made a real dent in document digitization generally, but they can't replace the human judgment that grading a descriptive, handwritten answer still requires.
 
-The manual evaluation process suffers from several limitations. Physical handling of scripts increases the risk of document misplacement, administrative errors, and processing delays. Since teachers often evaluate scripts containing student identification information, there is a possibility of conscious or unconscious bias during assessment. Moreover, maintaining consistent grading standards among multiple examiners is difficult, and administrators have limited capability to monitor evaluation progress or verify modifications made during the marking process.
-
-Question-wise evaluation presents another significant challenge. Different subjects require specialized examiners, yet manually separating answer scripts according to individual questions and assigning them to appropriate teachers is repetitive and error-prone. Furthermore, comparing evaluations from multiple teachers and determining the final mark requires additional administrative effort, reducing transparency and efficiency throughout the moderation process.
-
-Recent advances in document image processing, Optical Character Recognition (OCR), cloud computing, and modern web technologies provide opportunities to automate these tasks. \ac{OCR} enables extraction of printed text from scanned documents, while image processing techniques support segmentation of answer scripts into individual question regions. Combined with web-based evaluation platforms, these technologies enable remote evaluation and real-time monitoring of the assessment process.
-
-Motivated by these challenges, this thesis presents the \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}, a web-based platform that digitizes and automates the complete evaluation workflow for descriptive admission examinations. Unlike conventional systems that primarily focus on result management, \textbf{DASEMS} supports the entire evaluation lifecycle, including student information management, PDF upload, automated question segmentation, teacher assignment, answer evaluation, moderation, and final result generation.
-
-The proposed system follows a role-based architecture consisting of \textbf{Super Administrator}, \textbf{Head Examiner}, and \textbf{Teacher} roles. To ensure fairness, student identities are concealed from evaluators using anonymous student codes. A Python-based document processing service automatically analyzes uploaded answer scripts, detects question boundaries, and extracts answer regions using a two-stage approach that combines text-layer analysis with \ac{OCR}-based fallback processing. Each answer is then assigned to multiple subject experts for independent evaluation. If significant differences occur among the assigned evaluators, the answer is automatically forwarded to the \textbf{Head Examiner} for moderation before finalizing the marks.
-
-By integrating automated document processing, anonymous evaluation, role-based access control, and centralized moderation, \textbf{DASEMS} provides a comprehensive digital framework that improves efficiency, fairness, transparency, and accountability in the admission script evaluation process. Consequently, the proposed system offers a practical and scalable alternative to conventional paper-based evaluation for universities and other educational institutions conducting descriptive examinations.
-
-
+This is the gap that motivates the current work. This thesis introduces the \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}, a web platform built to digitize the admission-script evaluation process from start to finish. It handles secure PDF uploads, splits scripts into questions using a predefined template, keeps students anonymous through student identification codes (\textbf{s\_code}), routes each question to the right subject teacher automatically, lets teachers grade directly in the browser, supports moderation by Head Examiners, and produces a centralized result at the end. The goal is not to remove teachers from the loop, but to make the whole process faster, more transparent, and fairer while leaving the actual academic judgment where it belongs -- with the evaluators.
 
 \subsection{Background and Motivation}
 
-University admission examinations play a crucial role in selecting qualified candidates for higher education. As the number of applicants continues to increase, universities must evaluate thousands of descriptive answer scripts within a limited time. Ensuring an efficient, fair, and transparent evaluation process has therefore become an important challenge for educational institutions.
+Admission examinations sit near the top of the list of high-stakes assessments in higher education. Thousands of candidates sit these exams every year, and teachers are left to grade a large volume of descriptive answers in a short amount of time. Even at universities that have digitized much of their exam administration, the actual marking of handwritten descriptive answers is often still done on paper \cite{article}.
 
-Traditionally, admission answer scripts are physically distributed among teachers, evaluated on paper, moderated through meetings, and finally compiled into result sheets. Although this workflow has been used for many years, it requires considerable administrative effort and becomes increasingly inefficient when handling large volumes of answer scripts. Manual coordination, mark calculation, and moderation not only consume time but also increase the possibility of operational errors.
+The typical process looks like this: scripts get physically handed out to teachers, marked by hand, checked over by senior examiners, and finally added up into result sheets. Managing this by hand takes considerable administrative effort, and it's genuinely difficult to track progress, guarantee anonymity, or keep grading consistent across multiple examiners \cite{8878791}. Paper also brings its own risks -- scripts get misplaced, totals get miscalculated, and results end up delayed.
 
-Maintaining consistency among multiple examiners is another significant challenge. Teachers may interpret marking criteria differently, resulting in variations in awarded marks. Moreover, because student identification is often visible during evaluation, complete anonymity cannot always be ensured, introducing the possibility of conscious or unconscious bias.
+Work in document image processing, OCR, and layout analysis has already shown that a lot of document handling can be automated effectively \cite{4376991,inbook,docbank2020}. These techniques make it feasible to process scanned documents electronically and lay the groundwork for smarter exam-management systems. That said, most existing systems either focus narrowly on digitizing documents or on running online exams -- not on supporting the full pipeline of descriptive admission-script evaluation across multiple teachers and a moderation stage.
 
-Advances in web technologies, cloud computing, document image processing, and Optical Character Recognition (OCR) provide opportunities to modernize this workflow. Digital platforms enable centralized management of evaluation activities, while OCR-assisted document analysis can automatically identify question boundaries and segment answer scripts into question-wise regions for evaluation. These technologies are intended to support human examiners by automating repetitive administrative tasks rather than replacing their academic judgment.
-
-Motivated by these challenges, this research proposes the \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)}, which integrates secure web technologies, automated PDF processing, OCR-assisted question segmentation, anonymous evaluation, role-based access control, and centralized moderation into a unified platform. The proposed system aims to reduce administrative workload, improve examiner coordination, enhance fairness and transparency, and provide a scalable digital framework for descriptive admission script evaluation.
-
+What this research sets out to do is build something practical: a web platform that cuts down administrative overhead without taking human evaluation out of the equation. The system takes in scanned answer scripts, breaks them into question-wise regions using a set template, hands questions off automatically to the relevant subject teachers, allows anonymous browser-based grading, and steps in with a moderation mechanism whenever examiners disagree significantly.
 
 \subsection{Research Objectives}
 
-The objective of this research is to develop a secure and efficient web-based platform for descriptive university admission script evaluation. The proposed system aims to automate answer script processing, anonymous evaluation, moderation, and result generation while improving the transparency, accuracy, and efficiency of the evaluation process.
+The core aim of this research is to build a secure, efficient web platform for evaluating descriptive university admission scripts. It targets automation of document processing, teacher assignment, evaluation management, moderation, and result generation -- all in service of a process that is faster, more transparent, and fairer than the current manual one.
 
 \subsubsection{General Objective}
 
-The general objective of this research is to design and develop a web-based Digital Admission Script Evaluation and Moderation System (DASEMS) for secure script processing, anonymous evaluation, moderation, and centralized result management.
+The general objective is to design and build a \textbf{Digital Admission Script Evaluation and Moderation System (DASEMS)} that manages the entire descriptive admission-script evaluation workflow, end to end.
 
 \subsubsection{Specific Objectives}
 
-The specific objectives of this research are as follows:
-
 \begin{itemize}
 
-\item To develop a role-based system for Super Administrator, Head Examiner, and Teacher.
+\item Build a secure, role-based platform for Super Administrator, Head Examiner, and Teacher roles.
 
-\item To implement secure authentication and anonymous script evaluation.
+\item Introduce anonymous student identification via a unique \textbf{s\_code}, so evaluation stays unbiased.
 
-\item To design a digital question bank for admission examinations.
+\item Process uploaded admission scripts and split them into question-wise regions automatically, using template-based document segmentation.
 
-\item To develop an OCR-based PDF processing module for question-wise answer extraction.
+\item Build an automated mechanism that routes answers to the appropriate subject teachers.
 
-\item To implement automated teacher assignment and browser-based digital evaluation.
+\item Provide a browser-based evaluation interface with support for digital annotation, comments, and mark entry.
 
-\item To develop a moderation mechanism for resolving significant differences in marks.
-
-\item To generate final results and evaluation reports through a centralized management system.
-
-\item To improve the efficiency, transparency, and fairness of the admission evaluation process.
+\item Generate centralized evaluation reports and final results once moderation is complete.
 
 \end{itemize}
 
 \subsection{Scope of the Research}
 
-This research focuses on the development of a web-based platform for managing descriptive university admission script evaluation. The proposed system automates the workflow from examination configuration and answer script processing to moderation and result generation while preserving human judgment during evaluation.
+This research is centered on building a web platform that digitizes the evaluation of handwritten university admission answer scripts. It covers the full workflow -- student information management, script upload, question-wise segmentation, automatic teacher assignment, digital evaluation, moderation, and result generation.
 
-The platform supports centralized management of admission sessions, subjects, teachers, students, and evaluations. Administrators manage examinations and monitor progress, teachers evaluate assigned answers, and Head Examiners perform moderation when required.
-
-A key contribution of the system is the automated processing of scanned answer scripts. Using a hybrid approach that combines embedded PDF text extraction and Optical Character Recognition (OCR), the system detects question boundaries and extracts question-wise answer regions for evaluation.
-
-To ensure fairness, student identities are replaced with anonymous identifiers, and answers are automatically assigned to subject-specific teachers. A moderation mechanism forwards evaluations with significant mark differences to the Head Examiner for final review.
-
-The scope of this research does not include automatic grading of handwritten answers. OCR is used only for document processing, while all marking decisions remain under the control of human examiners. The system has been evaluated using representative admission examination templates and provides a secure, scalable, and transparent framework for descriptive admission script evaluation.
-
-
-\subsection{Research Contributions}
-
-The major contributions of this research are summarized as follows:
+The scope includes:
 
 \begin{itemize}
 
-\item Design and development of a web-based platform for managing the complete workflow of descriptive university admission script evaluation and moderation.
+\item A role-based web application for Super Administrator, Head Examiner, and Teacher.
 
-\item Development of a secure role-based system supporting \textbf{Super Administrator}, \textbf{Head Examiner}, and \textbf{Teacher} roles, together with anonymous student identification to ensure fair evaluation.
+\item Processing scanned admission scripts in PDF format via template-based document segmentation.
 
-\item Implementation of a two-stage PDF processing pipeline that combines embedded text extraction with \textbf{Optical Character Recognition (OCR)} for automatic question segmentation and answer extraction.
+\item Automatically splitting uploaded scripts into individual question-wise answer regions.
 
-\item Automated distribution of question-wise answers to subject-specific teachers, along with a browser-based interface for digital annotation and mark submission.
+\item Anonymous evaluation through a unique student identification code (\textbf{s\_code}).
 
-\item Development of a moderation mechanism that detects significant differences between independent evaluations and forwards disputed answers to the \textbf{Head Examiner} for final review.
+\item Automatic assignment of question-wise evaluation tasks to subject-specific teachers.
 
-\item Design of a centralized, modular, and extensible architecture for managing evaluation records, progress monitoring, audit logs, and result generation, enabling efficient and transparent examination management.
+\item A browser-based evaluation interface supporting digital annotation, comments, and mark submission via a graphics tablet or stylus.
+
+\item A three-examiner evaluation workflow with moderation support for conflicting marks.
+
+\item Final result generation once evaluation and moderation are complete.
+
+\end{itemize}
+
+This work does not try to replace human judgment in grading descriptive answers. The focus stays on making the evaluation workflow more efficient and better managed, while leaving room for AI-assisted assessment to be layered in later.
+
+\subsection{Research Contributions}
+
+\begin{itemize}
+
+\item A web-based Digital Admission Script Evaluation and Moderation System (DASEMS) that supports the complete handwritten admission-script evaluation workflow.
+
+\item A template-based document segmentation approach that automatically splits uploaded scripts into question-wise regions while keeping the original scanned document intact.
+
+\item An anonymous evaluation mechanism built around a unique student identification code (\textbf{s\_code}), aimed at keeping assessment fair and unbiased.
+
+\item An automated mechanism for distributing evaluation tasks among subject-specific teachers.
+
+\item A browser-based digital evaluation interface with graphical annotation, comments, and mark submission, built to mirror traditional paper-based marking.
+
+\item A three-examiner moderation framework that flags significant marking differences and supports the Head Examiner's final decision.
+
+\item A centralized result-generation mechanism that ties evaluated marks to student information and produces the final examination results.
 
 \end{itemize}
 
 \subsection{Organization of the Thesis}
 
-The remainder of this thesis is organized into six chapters.
+The rest of this thesis is structured as follows:
 
-\textbf{Chapter 2} reviews the literature on digital examination systems, Optical Character Recognition (OCR), document image processing, online evaluation platforms, and role-based access control, highlighting the research gaps addressed in this work.
+\begin{itemize}
 
-\textbf{Chapter 3} presents the proposed methodology, including the system architecture, database design, document processing pipeline, OCR-assisted question segmentation, teacher assignment, and moderation workflow.
+\item \textbf{Chapter 2} reviews existing literature on digital examination systems, document processing, OCR, handwritten document analysis, and automated evaluation techniques.
 
-\textbf{Chapter 4} describes the implementation of the proposed system, covering the software architecture, PDF processing module, evaluation interface, moderation module, and result generation.
+\item \textbf{Chapter 3} lays out the proposed methodology -- system architecture, database design, the document processing pipeline, template-based question segmentation, the evaluation workflow, and the moderation mechanism.
 
-\textbf{Chapter 5} presents the experimental results, system validation, performance analysis, and discussion of the effectiveness of the proposed system.
+\item \textbf{Chapter 4} covers implementation: frontend and backend development, database integration, PDF processing, user interfaces, and the evaluation modules.
 
-\textbf{Chapter 6} concludes the thesis by summarizing the research contributions, discussing current limitations, and suggesting future research directions.
+\item \textbf{Chapter 5} presents experimental results, system evaluation, performance analysis, and discussion.
 
-Overall, the thesis progresses from the research background and literature review to the proposed methodology, implementation, experimental evaluation, and conclusion.
+\item \textbf{Chapter 6} closes the thesis by summarizing contributions, discussing the system's limitations, and outlining directions for future work.
 
-
-
-
+\end{itemize}
